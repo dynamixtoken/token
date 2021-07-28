@@ -1,6 +1,6 @@
 const Reward = artifacts.require("TestReward");
 
-contract('Reward - Timestamp', (accounts) => {
+contract('Timestamp', (accounts) => {
   it('should put timestamp in the owner account', async () => {
     var now = (new Date()).getTime() / 1000 - 500; // -500 for contract execution delay
 

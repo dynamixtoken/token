@@ -46,32 +46,10 @@ contract('Fee', (accounts) => {
     assert.equal(6, (await c.getRewardFee(50000)).toNumber(), "for 50000 holders should be 6% reward fee");
     assert.equal(8, (await c.getRewardFee(1000000)).toNumber(), "for 1000000 holders should be 8% reward fee");
   });
-  
-  it('should set fee before PreSale', async () => {
-	const c = await Contract.deployed();
-	await c.beforePreSale();
-	
-	const sellFee = await c.sellFee.call();
-	const buyFee = await c.buyFee.call();
-
-    assert.equal(0, sellFee, "sell Fee should be 0");
-    assert.equal(0, buyFee, "sell Fee should be 0");
-  });
-  
-  it('should set fee after PreSale', async () => {
-	const c = await Contract.deployed();
-	await c.afterPreSale();
-	
-	const sellFee = await c.sellFee.call();
-	const buyFee = await c.buyFee.call();
-
-    assert.equal(15, sellFee, "sell Fee should be 0");
-    assert.equal(14, buyFee, "sell Fee should be 0");
-  });
-  
+    
   it('should get Hold Fee depending hold time', async () => {
 	const c = await Contract.deployed();
-	await c.afterPreSale();
+	await c.enableFee();
 	
 	var now = ((new Date()).getTime() / 1000).toFixed() - 1000; 
 	
@@ -85,7 +63,7 @@ contract('Fee', (accounts) => {
   
   it('should get buy fee depending holders (beforePreSale)', async () => {
 	const c = await Contract.deployed();
-	await c.beforePreSale();
+	await c.disableFee();
 
 	const buy2000 = await c.getBuyFee(2000, 500); 
 	const buy1500 = await c.getBuyFee(1500, 12000); 
@@ -101,7 +79,7 @@ contract('Fee', (accounts) => {
   
   it('should get buy fee depending holders (afterPreSale)', async () => {
 	const c = await Contract.deployed();
-	await c.afterPreSale();
+	await c.enableFee();
 
 	const buy2000 = await c.getBuyFee(2000, 589); 
 	const buy1500 = await c.getBuyFee(1500, 9785); 
@@ -122,7 +100,7 @@ contract('Fee', (accounts) => {
   
   it('should get sell fee depending hold time (beforePreSale)', async () => {
 	const c = await Contract.deployed();
-	await c.beforePreSale();
+	await c.disableFee();
 
 	var now = ((new Date()).getTime() / 1000).toFixed() - 1000; 
 
@@ -140,7 +118,7 @@ contract('Fee', (accounts) => {
   
   it('should get sell fee depending hold time (afterPreSale)', async () => {
 	const c = await Contract.deployed();
-	await c.afterPreSale();
+	await c.enableFee();
 
 	var now = ((new Date()).getTime() / 1000).toFixed() - 1000; 
 
@@ -157,24 +135,13 @@ contract('Fee', (accounts) => {
 	const c = await Contract.deployed();
 	
 	const teamAddress = await c.teamAddress.call();
-	//const marketAddress = await c.marketAddress.call();
-	//const devAddress = await c.devAddress.call();
 	
 	await c.setTeamAddress("0x0000000000000000000000000000000000000010");
-	//await c.setMarketAddress("0x0000000000000000000000000000000000000011");
-	//await c.setDevAddress("0x0000000000000000000000000000000000000012");
 	
 	const newTeamAddress = await c.teamAddress.call();
-	//const newMarketAddress = await c.marketAddress.call();
-	//const newDevAddress = await c.devAddress.call();
 
 	assert.notEqual(teamAddress, newTeamAddress, "teamAddress should be changed");
-	//assert.notEqual(marketAddress, newMarketAddress, "marketAddress should be changed");
-	//assert.notEqual(devAddress, newDevAddress, "devAddress should be changed");
 	
 	assert.equal("0x0000000000000000000000000000000000000010", newTeamAddress, "teamAddress should be changed");
-	//assert.equal("0x0000000000000000000000000000000000000011", newMarketAddress, "marketAddress should be changed");
-	//assert.equal("0x0000000000000000000000000000000000000012", newDevAddress, "devAddress should be changed");
   });
-  
 });

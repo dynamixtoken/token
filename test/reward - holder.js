@@ -1,6 +1,6 @@
 const Reward = artifacts.require("TestReward");
 
-contract('Reward - Holders', (accounts) => {
+contract('Holders', (accounts) => {
   it('should have 0 holder', async () => {
     const r = await Reward.deployed(10000);
 	

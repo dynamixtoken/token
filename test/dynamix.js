@@ -53,8 +53,7 @@ contract('Dynamix', (accounts) => {
   it('buy transfert (afterPreSale) - 3000 tokens from account2 to account3', async () => {
 	const c = await Contract.deployed();
 	
-	await c.afterPreSale();
-	await c.setPair(accounts[2], true); // Set account2 as pair
+	await c.afterPreSale(accounts[2]);
 	
     await c.transfer(accounts[3], 3000, { from: accounts[2] });
 	
@@ -70,7 +69,7 @@ contract('Dynamix', (accounts) => {
   it('sell transfert (afterPreSale) - 1500 tokens from account3 to account2', async () => {
 	const c = await Contract.deployed();
 	
-	await c.afterPreSale();
+	await c.afterPreSale(accounts[2]);
 	await c.setPair(accounts[2], true); // Set account2 as pair
 	
     await c.transfer(accounts[2], 1500, { from: accounts[3] });
@@ -89,7 +88,7 @@ contract('Dynamix', (accounts) => {
   it('sell transfert (afterPreSale) - all tokens from account3 to account2', async () => {
 	const c = await Contract.deployed();
 	
-	await c.afterPreSale();
+	await c.afterPreSale(accounts[2]);
 	await c.setPair(accounts[2], true); // Set account2 as pair
 	
 	const amount = await c.balanceOf.call(accounts[3]);
