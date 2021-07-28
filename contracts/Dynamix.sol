@@ -13,12 +13,12 @@ contract Dynamix is Reward, IERC20, Fee, Swap {
 	
 	mapping (address => mapping (address => uint256)) private _allowances;
 	
-	string public name = 'Dynamix';
-    string public symbol = 'DYNA';
+	string public name = 'Test Dynamix';
+    string public symbol = 'TDYNA';
     uint8 public decimals = 9;
 	
-	constructor(uint256 totalSupply, bool testnet) 
-		public Reward(totalSupply) Swap(testnet){
+	constructor(uint256 totalSupply) 
+		public Reward(totalSupply) {
 			emit Transfer(address(0), _msgSender(), totalSupply);
 	}
 	
@@ -64,37 +64,40 @@ contract Dynamix is Reward, IERC20, Fee, Swap {
 	// Internal Transfer, and fee management
 	function _transfer(address sender, address recipient, uint256 amount) private {
 		uint256 rewardFee = 0;
+		bool excludedFromFee = _excludedFromFee[sender] || _excludedFromFee[recipient];
 		
-		if(_isBuy(sender)) {
-			(uint256 rFee, uint256 tokenToTeam, uint256 tokenToOwner) = _getBuyFee(amount, holders);
-			_transfer(sender, teamAddress, tokenToTeam, 0);
+		if(!excludedFromFee) {
+			if(_isBuy(sender)) {
+				(uint256 rFee, uint256 tokenToTeam, uint256 tokenToOwner) = _getBuyFee(amount, holders);
+				_transfer(sender, teamAddress, tokenToTeam, 0);
+				
+				// Init timestamp for token hold
+				_balances[recipient].timestamp = block.timestamp;
+				
+				rewardFee = rFee;
+				amount = tokenToOwner;
+				
+				emit Transfer(sender, teamAddress, tokenToTeam);
+			}
 			
-			// Init timestamp for token hold
-			_balances[recipient].timestamp = block.timestamp;
-			
-			rewardFee = rFee;
-			amount = tokenToOwner;
-			
-			emit Transfer(sender, teamAddress, tokenToTeam);
+			if(_isSell(recipient)) {
+				(uint256 tokenToBuyBack, uint256 tokenToTeam, uint256 tokenToOwner) = _getSellFee(amount, _balances[sender].timestamp);
+				_transfer(sender, teamAddress, tokenToTeam, 0);
+				_transfer(sender, address(this), tokenToBuyBack, 0);
+				
+				amount = tokenToOwner;
+				
+				emit Transfer(sender, teamAddress, tokenToTeam);
+				emit Transfer(sender, address(this), tokenToBuyBack);
+				
+				if(!inSellOrBuy)
+					_sellAndBuy();
+			}
 		}
 		
-		if(_isSell(recipient)) {
-			(uint256 tokenToBuyBack, uint256 tokenToTeam, uint256 tokenToOwner) = _getSellFee(amount, _balances[sender].timestamp);
-			_transfer(sender, teamAddress, tokenToTeam, 0);
-			_transfer(sender, address(this), tokenToBuyBack, 0);
-			
-			amount = tokenToOwner;
-			
-			emit Transfer(sender, teamAddress, tokenToTeam);
-			emit Transfer(sender, address(this), tokenToBuyBack);
-		}
-
         amount = _transfer(sender, recipient, amount, rewardFee);
 		
 		emit Transfer(sender, recipient, amount);
-		
-		if(!inSellOrBuy)
-		    _sellAndBuy();
 	}
 	
     receive() external payable {}
@@ -106,44 +109,47 @@ contract Dynamix is Reward, IERC20, Fee, Swap {
         _;
         inSellOrBuy = false;
     }
-	
-	
+		
 	// Sell and BuyBack
 	function _sellAndBuy() private lockTheSwap {
-		if(autoSellEnabled){
+		if(autoBuyBackEnabled){
 			
-			// Team Balance
-			uint256 teamToken = balanceOf(teamAddress);
-			if (teamToken >= minimumTokensBeforeSell) {
-				_approve(teamAddress, address(uniswapV2Router), teamToken);
-
-				_swapTokensForBNB(teamAddress, teamToken);  // Sell Token for Marketing and Dev costs 
-				
-				uint256 bnb = address(this).balance;
-				uint256 dev = bnb.mul(10).div(100);
-				uint256 marketing = bnb.sub(dev);
-				
-				// transfer 10% of fees to dev team
-				devAddress.transfer(dev);
-				
-				// transfer 90% of fees to marketing team
-				marketingAddress.transfer(marketing);
-			}
-
-			// Contract Balance
+			// Sell Tokens for BuyBack
 			uint256 contractToken = balanceOf(address(this));
 			if (contractToken >= minimumTokensBeforeSell) {
 				_approve(address(this), address(uniswapV2Router), contractToken);
-				_swapTokensForBNB(address(this), teamToken);  // Sell Token for BuyBack			
+				_swapTokensForBNB(contractToken); 	
 			}
-		}
-		
-		if(autoBuyBackEnabled){
+			
+			// Buy Tokens
 			uint256 contractBnb = address(this).balance;
 			
-			if (contractBnb >= minimumBNBBeforeBuyBack) 
+			if (contractBnb >= minimumBNBBeforeBuy) 
 				_approve(address(this), address(uniswapV2Router), contractBnb);
 				_buyBackAndBurnToken(contractBnb); // BuyBack and Burn
 		}
 	}
+	
+	// Before PreSale, no fees
+	function beforePreSale() external onlyOwner()  {
+		sellFee = 0;
+		buyFee = 0;
+		autoBuyBackEnabled = false;
+		minimumTokensBeforeSell = 0;
+		minimumBNBBeforeBuy = 0;
+
+		emit PreSaleStarted(sellFee, buyFee);
+    }
+	
+	// After PreSale, initialization fees
+	function afterPreSale(address account) external onlyOwner()  {
+		sellFee = 15;
+		buyFee = 14;
+		_pair[account] = true;
+		autoBuyBackEnabled = true;
+		minimumTokensBeforeSell = 10 * 10**9;
+		minimumBNBBeforeBuy = 1 * 10**16;
+
+		emit PreSaleCompleted(sellFee, buyFee);
+    }
 }

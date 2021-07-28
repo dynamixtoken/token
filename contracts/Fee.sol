@@ -3,16 +3,19 @@ pragma solidity >=0.6.0 <0.7.0;
 
 import "./Ownable.sol";
 import "./SafeMath.sol";
+import "./Address.sol";
 
 contract Fee is Ownable {		
 	using SafeMath for uint256;
+	using Address for address;
 
     mapping (address => bool) internal _pair;
+    mapping (address => bool) internal _excludedFromFee;
 
 	uint256 public sellFee = 0;
 	uint256 public buyFee = 0;
 
-	address public teamAddress = 0x0000000000000000000000000000000000000001;
+	address public teamAddress = 0x1321D865DD9572e5A7A5425205042d59990637ab;
 		
 	event PreSaleStarted(
         uint256 sellFee,
@@ -29,8 +32,18 @@ contract Fee is Ownable {
     );
 	
 	constructor() internal {
-
+		address deadAddress = 0x000000000000000000000000000000000000dEaD;
+		
+		_excludedFromFee[_msgSender()] = true;
+		_excludedFromFee[address(this)] = true;
+		_excludedFromFee[teamAddress] = true;
+		_excludedFromFee[deadAddress] = true;
 	}
+	
+	// Manage Excluded Addr
+	function setExcludedFromFee(address account, bool excluded) external onlyOwner()  {
+        _excludedFromFee[account] = excluded;
+    }	
 	
 	// Manage Pair Address
 	function setPair(address account, bool isPair) external onlyOwner()  {
@@ -104,26 +117,12 @@ contract Fee is Ownable {
 		
 		return 9; // > 6 Months
     }
-	
-	// Before PreSale, no fees
-	function beforePreSale() external onlyOwner()  {
-		sellFee = 0;
-		buyFee = 0;
 		
-		emit PreSaleStarted(sellFee, buyFee);
-    }
-
-	// After PreSale, initialization fees
-	function afterPreSale() external onlyOwner()  {
-		sellFee = 15;
-		buyFee = 14;
-		
-		emit PreSaleCompleted(sellFee, buyFee);
-    }
-	
 	// Set Team Address
 	function setTeamAddress(address addr) external onlyOwner() {
         teamAddress = addr;
+		_excludedFromFee[teamAddress] = true;
+
 		TeamAddressChanged(addr);
     }
 }
