@@ -117,7 +117,7 @@ contract Dynamix is Reward, IERC20, Fee, Swap {
 			// Sell Tokens for BuyBack
 			uint256 contractToken = balanceOf(address(this));
 			if (contractToken >= minimumTokensBeforeSell) {
-				_approve(address(this), address(uniswapV2Router), contractToken);
+				//_approve(address(this), address(uniswapV2Router), contractToken);
 				_swapTokensForBNB(contractToken); 	
 			}
 			
@@ -125,7 +125,7 @@ contract Dynamix is Reward, IERC20, Fee, Swap {
 			uint256 contractBnb = address(this).balance;
 			
 			if (contractBnb >= minimumBNBBeforeBuy) 
-				_approve(address(this), address(uniswapV2Router), contractBnb);
+				//_approve(address(this), address(uniswapV2Router), contractBnb);
 				_buyBackAndBurnToken(contractBnb); // BuyBack and Burn
 		}
 	}

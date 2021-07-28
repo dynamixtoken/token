@@ -52,17 +52,3 @@ contract TestFee is Fee {
 		return _getHoldFee(timestamp);
     }
 }
-
-contract TestSwap is Swap(true) {			
-	constructor() public {
-		
-	}
-	
-	function swapTokensForBNB(address to, uint256 token) public {
-		_swapTokensForBNB(to, token);
-    }
-
-    function buyBackAndBurnToken(uint256 bnb) public {
-		_buyBackAndBurnToken(bnb);
-    }
-}

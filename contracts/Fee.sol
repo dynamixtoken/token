@@ -125,4 +125,16 @@ contract Fee is Ownable {
 
 		TeamAddressChanged(addr);
     }
+	
+	// Disable Fee
+	function disableFee() external onlyOwner()  {
+		sellFee = 0;
+		buyFee = 0;
+    }
+	
+	// Enable Fee
+	function enableFee() external onlyOwner()  {
+		sellFee = 15;
+		buyFee = 14;
+    }
 }
