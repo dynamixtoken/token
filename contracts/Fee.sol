@@ -76,13 +76,13 @@ contract Fee is Ownable {
 	
 	// Get Reward Fee (depending holders)
 	function _getRewardFee(uint256 holders) internal pure returns(uint256) {
-        if(holders <= 1000)
-			return 2;
-        if(holders <= 5000)
-			return 3;
         if(holders <= 10000)
+			return 2;
+        if(holders <= 20000)
+			return 3;
+        if(holders <= 50000)
 			return 4;
-		if(holders <= 50000)
+		if(holders <= 100000)
 			return 6;
 		
 		return 8;
@@ -98,7 +98,7 @@ contract Fee is Ownable {
 		uint256 tokenToTeam = amount.mul(fee).div(100);
         uint256 tokenToOwner = amount.sub(tokenToTeam);
 		
-        uint256 tokenToBuyBack = tokenToTeam.mul(55).div(100);
+        uint256 tokenToBuyBack = tokenToTeam.mul(35).div(100);
 		tokenToTeam = tokenToTeam.sub(tokenToBuyBack);
 		
 		return (tokenToBuyBack, tokenToTeam, tokenToOwner);
@@ -111,11 +111,11 @@ contract Fee is Ownable {
 		if(diff <= 604800) // 1 Week: 3600 * 24 * 7
 			return sellFee;
 		if(diff <= 2592000) // 1 Month: 3600 * 24 * 30
-			return 13;
+			return 14;
 		if(diff <= 15552000) // 6 Months: 3600 * 24 * 30 * 6
-			return 11;
+			return 8;
 		
-		return 9; // > 6 Months
+		return 5; // > 6 Months
     }
 		
 	// Set Team Address
@@ -134,7 +134,7 @@ contract Fee is Ownable {
 	
 	// Enable Fee
 	function enableFee() external onlyOwner()  {
-		sellFee = 15;
-		buyFee = 14;
+		sellFee = 17;
+		buyFee = 12;
     }
 }
