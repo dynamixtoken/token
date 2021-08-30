@@ -21,11 +21,9 @@ contract Reward is Ownable, Holder {
     uint256 internal _rewardSupply;
 	
     address[] private _excludedFromRewardAddr;
-	
-	uint256 private constant MAX = ~uint256(0);
-	
+		
 	constructor(uint256 totalSupply) public {
-		require(totalSupply <= MAX, "totalSupply is too high");
+		require(totalSupply <= 1000000000000000000000000, "totalSupply is too high");
 		
 		_tokenSupply = totalSupply;
 		_rewardSupply = (~uint256(0) - (~uint256(0) % _tokenSupply));
