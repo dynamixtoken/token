@@ -1,0 +1,57 @@
+[
+	{
+		"id": "103349591375246617943499676028203104411068851111653496349936449101090680471553",
+		"name": "Dyna -1+1",
+		"powers": {
+			"minusOnePlusOne": true, 
+			"jokerX1": true, 
+			"jokerX2": true, 
+			"discount50": true
+		},
+		"owner": "0xE47dcbB8003F32AA5aF1f0c9e5694636148133bc"
+	},
+	{
+		"id": "103349591375246617943499676028203104411068851111653496349936449102190192099329",
+		"name": "Dyna Joker x1",
+		"powers": {
+			"minusOnePlusOne": true, 
+			"jokerX1": true, 
+			"jokerX2": true, 
+			"discount50": true
+		},
+		"owner": "0xE47dcbB8003F32AA5aF1f0c9e5694636148133bc"
+	},
+	{
+		"id": "103349591375246617943499676028203104411068851111653496349936449103289703727105",
+		"name": "Dyna Joker x2",
+		"powers": {
+			"minusOnePlusOne": true, 
+			"jokerX1": true, 
+			"jokerX2": true, 
+			"discount50": true
+		},
+		"owner": "0xE47dcbB8003F32AA5aF1f0c9e5694636148133bc"
+	},
+	{
+		"id": "103349591375246617943499676028203104411068851111653496349936449104389215354881",
+		"name": "Dyna 50% discount",
+		"powers": {
+			"minusOnePlusOne": true, 
+			"jokerX1": true, 
+			"jokerX2": true, 
+			"discount50": true
+		},
+		"owner": "0xE47dcbB8003F32AA5aF1f0c9e5694636148133bc"
+	},
+	{
+		"id": "103349591375246617943499676028203104411068851111653496349936449104389215354881",
+		"name": "Dyna 50% discount",
+		"powers": {
+			"minusOnePlusOne": true, 
+			"jokerX1": true, 
+			"jokerX2": true, 
+			"discount50": true
+		},
+		"owner": "0xE47dcbB8003F32AA5aF1f0c9e5694636148133bc"
+	}
+]

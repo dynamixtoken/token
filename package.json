@@ -1,5 +1,16 @@
 {
+  "name": "lottery-app",
+  "version": "1.0.0",
+  "description": "Dynamix Lottery Bot",
+  "type": "module",
+  "scripts": {
+    "draw": "node draw.js",
+    "nft": "node nft.js"
+  },
+  "author": "Dynamix Dev Team",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.4.2"
+    "dotenv": "^10.0.0",
+    "ethers": "^5.1.4",
+    "fs": "^0.0.1-security"
   }
 }

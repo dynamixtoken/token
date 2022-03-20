@@ -1,0 +1,307 @@
+{
+  "contractName": "IDynamixLotteryRandom",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "random",
+          "type": "uint256"
+        }
+      ],
+      "name": "getRandomNumber",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.12+commit.f00d7308\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"random\",\"type\":\"uint256\"}],\"name\":\"getRandomNumber\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ILotteryRandom.sol\":\"IDynamixLotteryRandom\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ILotteryRandom.sol\":{\"keccak256\":\"0x22a726a6390245fe1c710564d9bf0404fb8726f9e1b353bbe47d886315b1674e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://040960ee8fd8c3af01573e4c8f8cfa907d19fdbfe92f61b2eb6db3f040fa0c3d\",\"dweb:/ipfs/QmW1Nss75CadNfHyX2utu7UGuH1ASEVsdGWMhzRLqKWQNe\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IDynamixLotteryRandom {\n    function getRandomNumber(uint256 random) external view returns(uint32);\n}",
+  "sourcePath": "C:\\Users\\Amos\\Documents\\BEP 20\\dynamic\\DynamixLotterySmartContract\\contracts\\ILotteryRandom.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ILotteryRandom.sol",
+    "exportedSymbols": {
+      "IDynamixLotteryRandom": [
+        3959
+      ]
+    },
+    "id": 3960,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3951,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:31"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IDynamixLotteryRandom",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 3959,
+        "linearizedBaseContracts": [
+          3959
+        ],
+        "name": "IDynamixLotteryRandom",
+        "nameLocation": "67:21:31",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "b37217a4",
+            "id": 3958,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getRandomNumber",
+            "nameLocation": "104:15:31",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3954,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3953,
+                  "mutability": "mutable",
+                  "name": "random",
+                  "nameLocation": "128:6:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3958,
+                  "src": "120:14:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3952,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "120:7:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "119:16:31"
+            },
+            "returnParameters": {
+              "id": 3957,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3956,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3958,
+                  "src": "158:6:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 3955,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "158:6:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "157:8:31"
+            },
+            "scope": 3959,
+            "src": "95:71:31",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3960,
+        "src": "57:111:31",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:136:31"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/ILotteryRandom.sol",
+    "exportedSymbols": {
+      "IDynamixLotteryRandom": [
+        3959
+      ]
+    },
+    "id": 3960,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3951,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:31"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IDynamixLotteryRandom",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 3959,
+        "linearizedBaseContracts": [
+          3959
+        ],
+        "name": "IDynamixLotteryRandom",
+        "nameLocation": "67:21:31",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "b37217a4",
+            "id": 3958,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getRandomNumber",
+            "nameLocation": "104:15:31",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3954,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3953,
+                  "mutability": "mutable",
+                  "name": "random",
+                  "nameLocation": "128:6:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3958,
+                  "src": "120:14:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3952,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "120:7:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "119:16:31"
+            },
+            "returnParameters": {
+              "id": 3957,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3956,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3958,
+                  "src": "158:6:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 3955,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "158:6:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "157:8:31"
+            },
+            "scope": 3959,
+            "src": "95:71:31",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3960,
+        "src": "57:111:31",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:136:31"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.12+commit.f00d7308.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2022-03-15T09:56:02.329Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
